@@ -1,10 +1,17 @@
-# Karttageneraattori
+## Määrittelydokumentti
 
 Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit (2021, periodi 3)
 Tietojenkäsittelytieteen kandiohjelma
 
+Projektin kieli: suomi
+
 Harjoitustyön aiheena on tietokonepeleistä tuttu kaksiulotteinen karttageneraattori. Toteutus Java-kielellä ja käyttöliittymäkirjastona JavaFX.
 
-[Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
+### Algoritmit ja tietorakenteet
 
-[Viikkoraportti 1](dokumentaatio/viikkoraportti1.md)
+Toteutettavia algoritmeja:
+
+- satunnaislukugeneraattori
+- jonkinlainen soluautomaatioalgoritmi
+
+Tarkemmin en osaa arvioida tässä vaiheessa.
