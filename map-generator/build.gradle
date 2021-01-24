@@ -1,7 +1,11 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
-
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'jacoco'
+    id 'checkstyle'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+}
 
 mainClassName = 'mapgenerator.Main'
 
@@ -13,11 +17,33 @@ dependencies {
     testImplementation     'junit:junit:4.13'
 }
 
+jacoco {
+    toolVersion = "0.8.6"
+}
+
 jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
+    dependsOn test
+    
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: '**/MapGeneratorUi**')
+        }))
     }
 }
 
-check.dependsOn jacocoTestReport
+test {
+    jacoco {
+        excludes = ['MapGeneratorUi']
+    }
+}
+
+javafx {
+    version = "15.0.1"
+    modules = [ 'javafx.controls' ]
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'mapgenerator.Main'
+    }
+}
