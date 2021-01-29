@@ -11,7 +11,11 @@ Harjoitustyön aiheena on tietokonepeleistä tuttu kaksiulotteinen karttageneraa
 
 Toteutettavia algoritmeja:
 
-- satunnaislukugeneraattori
-- jonkinlainen soluautomaatioalgoritmi
+- näennäissatunnaislukugeneraattori
+- soluautomaatioon perustuva karttageneraattori
+- vertailukohteeksi jokin toisenlainen karttageneraattori (ei päätetty vielä)
 
-Tarkemmin en osaa arvioida tässä vaiheessa.
+Toteutettavia tietorakenteita:
+
+- lista
+- verkko (ehkä)

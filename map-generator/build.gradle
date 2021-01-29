@@ -26,14 +26,14 @@ jacocoTestReport {
     
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: '**/MapGeneratorUi**')
+            fileTree(dir: it, exclude: ['**/MapGeneratorUi**', '**/Main**'])
         }))
     }
 }
 
 test {
     jacoco {
-        excludes = ['MapGeneratorUi']
+        excludes = ['MapGeneratorUi', 'Main']
     }
 }
 
