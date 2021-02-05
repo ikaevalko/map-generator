@@ -7,10 +7,15 @@ package mapgenerator.logic;
 public class RandomNumberGenerator {
     
     private long edellinen;
-    private final long modulus = 32768L;
-    private final long kerroin = 25173L;
-    private final long inkrementti = 13849L;
+    private final long modulus = 281474976710656L;
+    private final long kerroin = 25214903917L;
+    private final long inkrementti = 11L;
     
+    /**
+     * Luo uuden satunnaislukugeneraattorin.
+     * 
+     * @param seed alkuarvo
+     */
     public RandomNumberGenerator(long seed) {
         this.edellinen = seed;
     }
@@ -18,7 +23,7 @@ public class RandomNumberGenerator {
     /**
      * Generoi seuraavan satunnaisluvun edellisen luvun perusteella.
      * 
-     * @return seuraava satunnaisluku väliltä 0-1 (double)
+     * @return seuraava satunnaisluku väliltä 0.0 - 1.0
      */
     public double seuraava() {
         long luku = ((edellinen * kerroin) + inkrementti) % modulus;

@@ -1,5 +1,6 @@
 package mapgenerator.ui;
 
+import java.util.Arrays;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import mapgenerator.logic.CellularAutomata;
 import mapgenerator.logic.RandomNumberGenerator;
 
 public class MapGeneratorUi extends Application {
@@ -29,26 +31,16 @@ public class MapGeneratorUi extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         //luoAlkuvalikko();
-        int kartanKoko = 60;
-        luoKarttaNakyma(kartanKoko);
+        luoKarttaNakyma();
         meneKarttanakymaan();
         //meneAlkuvalikkoon();
         stage.setTitle("Karttageneraattori");
         stage.setResizable(false);
         stage.show();
-        RandomNumberGenerator rand = new RandomNumberGenerator(10);
-        for(int y = 0; y < kartanKoko; y++) {
-            for(int x = 0; x < kartanKoko; x++) {
-                double d = rand.seuraava();
-                if(d < 0.5) {
-                    lisaaLattia(x*10, y*10);
-                }
-            }
-        }
-//        pohja.setScaleX(0.5);
-//        pohja.setScaleY(0.5);
-//        pohja.setTranslateX(400-(kartanKoko*10/2)*0.5);
-//        pohja.setTranslateY(400-(kartanKoko*10/2)*0.5);
+        
+        CellularAutomata generaattori = new CellularAutomata(100, 100, 10, 0.5, 5);
+        piirraTaulukko(generaattori.generoi());
+        System.out.println("done");
     }
     
     private void luoAlkuvalikko() {
@@ -81,13 +73,11 @@ public class MapGeneratorUi extends Application {
         alkuvalikko = new Scene(asettelu, 800, 800);
     }
     
-    private void luoKarttaNakyma(int kartanKoko) {
+    private void luoKarttaNakyma() {
         tausta = new Pane();
         pohja = new Pane();
         tausta.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         tausta.getChildren().add(pohja);
-        pohja.setTranslateX(400-(kartanKoko*10/2));
-        pohja.setTranslateY(400-(kartanKoko*10/2));
         karttanakyma = new Scene(tausta, 800, 800);
     }
     
@@ -97,6 +87,20 @@ public class MapGeneratorUi extends Application {
     
     private void meneKarttanakymaan() {
         stage.setScene(karttanakyma);
+    }
+    
+    public void piirraTaulukko(boolean[][] taulukko) {
+        for(int x = 0; x < taulukko.length; x++) {
+            for(int y = 0; y < taulukko.length; y++) {
+                if(taulukko[x][y]) {
+                    lisaaLattia(x*10, y*10);
+                }
+            }
+        }
+        pohja.setScaleX(0.5);
+        pohja.setScaleY(0.5);
+        pohja.setTranslateX(400-(taulukko[0].length*10/2)*0.5);
+        pohja.setTranslateY(400-(taulukko.length*10/2)*0.5);
     }
     
     public void lisaaLattia(int x, int y) {
