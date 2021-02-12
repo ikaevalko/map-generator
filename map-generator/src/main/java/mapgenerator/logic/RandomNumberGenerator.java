@@ -1,7 +1,7 @@
 package mapgenerator.logic;
 
 /**
- * Yksinkertainen näennäissatunnaislukugeneraattori
+ * Yksinkertainen nÃ¤ennÃ¤issatunnaislukugeneraattori
  * https://en.wikipedia.org/wiki/Linear_congruential_generator
 */
 public class RandomNumberGenerator {
@@ -23,7 +23,7 @@ public class RandomNumberGenerator {
     /**
      * Generoi seuraavan satunnaisluvun edellisen luvun perusteella.
      * 
-     * @return seuraava satunnaisluku väliltä 0.0 - 1.0
+     * @return seuraava satunnaisluku vÃ¤liltÃ¤ 0.0 - 1.0
      */
     public double seuraava() {
         long luku = ((edellinen * kerroin) + inkrementti) % modulus;

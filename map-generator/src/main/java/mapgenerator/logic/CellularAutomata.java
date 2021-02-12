@@ -21,13 +21,13 @@ public class CellularAutomata {
     /**
      * Luo uuden CellularAutomata-tyyppisen karttageneraattorin.
      * 
-     * @param kartanLeveys solujen m‰‰r‰ x-akselilla
-     * @param kartanKorkeus solujen m‰‰r‰ y-akselilla
+     * @param kartanLeveys solujen m√§√§r√§ x-akselilla
+     * @param kartanKorkeus solujen m√§√§r√§ y-akselilla
      * @param seed satunnaislukugeneraattorin alkuarvo
-     * @param tayttoaste m‰‰r‰‰ lattiasolujen esiintyvyyden alustusvaiheessa (0.0 - 1.0)
-     * @param tasoituskertoja montako kertaa karttaa tasoitetaan soluautomaatiolla (v‰hint‰‰n 1)
-     * @param huoneidenMinimikoko t‰t‰ pienemm‰t huoneet poistetaan kartasta
-     * @param kaytavienKoko huoneiden yhdistelyss‰ k‰ytett‰vien k‰yt‰vien koko
+     * @param tayttoaste m√§√§r√§√§ lattiasolujen esiintyvyyden alustusvaiheessa (0.0 - 1.0)
+     * @param tasoituskertoja montako kertaa karttaa tasoitetaan soluautomaatiolla (v√§hint√§√§n 1)
+     * @param huoneidenMinimikoko t√§t√§ pienemm√§t huoneet poistetaan kartasta
+     * @param kaytavienKoko huoneiden yhdistelyss√§ k√§ytett√§vien k√§yt√§vien koko
      */
     public CellularAutomata(int kartanLeveys, int kartanKorkeus, int seed, 
                             double tayttoaste, int tasoituskertoja, int huoneidenMinimikoko, 
@@ -45,9 +45,9 @@ public class CellularAutomata {
     }
     
     /**
-     * Kutsuu metodeja, jotka luovat kartan ja muokkaavat sit‰.
+     * Kutsuu metodeja, jotka luovat kartan ja muokkaavat sit√§.
      * 
-     * @return valmis kartta boolean-tyyppisen‰ taulukkona
+     * @return valmis kartta boolean-tyyppisen√§ taulukkona
      */
     public boolean[][] generoi() {
         alusta();
@@ -62,7 +62,7 @@ public class CellularAutomata {
     
     /**
      * Alustaa karttataulukon satunnaisilla totuusarvoilla, joiden 
-     * jakauma m‰‰r‰ytyy t‰yttˆaste-parametrin mukaan.
+     * jakauma m√§√§r√§ytyy t√§ytt√∂aste-parametrin mukaan.
      */
     private void alusta() {
         for(int x = 0; x < kartanLeveys; x++) {
@@ -74,11 +74,11 @@ public class CellularAutomata {
     }
     
     /**
-     * Muokkaa karttataulukkoa m‰‰ritt‰m‰ll‰ jokaisen solun totuusarvon
+     * Muokkaa karttataulukkoa m√§√§ritt√§m√§ll√§ jokaisen solun totuusarvon
      * sen naapurisolujen totuusarvojen jakauman perusteella. 
-     * Mik‰li solulla on naapureina enemm‰n lattioita kuin seini‰, niin 
-     * solu muuttuu lattiaksi. Jos naapureina on enemm‰n seini‰ kuin 
-     * lattioita, niin solu muuttuu sein‰ksi.
+     * Mik√§li solulla on naapureina enemm√§n lattioita kuin seini√§, niin 
+     * solu muuttuu lattiaksi. Jos naapureina on enemm√§n seini√§ kuin 
+     * lattioita, niin solu muuttuu sein√§ksi.
      */
     private void tasoita() {
         for(int x = 0; x < kartanLeveys; x++) {
@@ -102,7 +102,7 @@ public class CellularAutomata {
      * 
      * @param soluX solun sijanti x-akselilla
      * @param soluY solun sijainti y-akselilla
-     * @return solun naapurilattioiden m‰‰r‰
+     * @return solun naapurilattioiden m√§√§r√§
      */
     private byte getNaapuriLattioita(int soluX, int soluY) {
         byte maara = 0;
@@ -125,7 +125,7 @@ public class CellularAutomata {
     }
     
     /**
-     * Etsii karttataulukosta kaikki huoneet ja lis‰‰ ne huoneet-listalle.
+     * Etsii karttataulukosta kaikki huoneet ja lis√§√§ ne huoneet-listalle.
      */
     private void etsiHuoneet() {
         boolean[][] kartanKopio = kopioiKartta();
@@ -142,12 +142,12 @@ public class CellularAutomata {
     
     /**
      * Etsii rekursiolla karttataulukosta kaikki 
-     * yksitt‰iseen huoneeseen kuuluvat solut.
+     * yksitt√§iseen huoneeseen kuuluvat solut.
      * 
      * @param solut huoneeseen kuuluvat solut
-     * @param kartanKopio huoneiden etsinn‰ss‰ k‰ytett‰v‰ karttataulukon kopio
-     * @param x k‰sitelt‰v‰n solun sijainti x-akselilla
-     * @param y k‰sitelt‰v‰n solun sijainti y-akselilla
+     * @param kartanKopio huoneiden etsinn√§ss√§ k√§ytett√§v√§ karttataulukon kopio
+     * @param x k√§sitelt√§v√§n solun sijainti x-akselilla
+     * @param y k√§sitelt√§v√§n solun sijainti y-akselilla
      * @return huoneeseen kuuluvat solut
      */
     private void etsiHuone(CustomList<int[]> solut, boolean[][] kartanKopio, int x, int y) {
@@ -164,7 +164,7 @@ public class CellularAutomata {
     }
     
     /**
-     * Poistaa kartasta kaikki huoneet, joiden solujen m‰‰r‰ on 
+     * Poistaa kartasta kaikki huoneet, joiden solujen m√§√§r√§ on 
      * pienempi kuin huoneidenMinimikoko.
      */
     private void poistaLiianPienetHuoneet() {
@@ -181,7 +181,7 @@ public class CellularAutomata {
     }
     
     /**
-     * Poistaa yksitt‰isen huoneen karttataulukosta muuttamalla 
+     * Poistaa yksitt√§isen huoneen karttataulukosta muuttamalla 
      * kaikki sen solut seiniksi.
      * 
      * @param huone poistettava huone

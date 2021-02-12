@@ -1,7 +1,7 @@
 package mapgenerator.util;
 
 /**
- * Yksinkertainen listarakenne lisäys-, poisto- ja hakutoiminnoilla.
+ * Yksinkertainen listarakenne lisÃ¤ys-, poisto- ja hakutoiminnoilla.
  */
 public class CustomList<T> {
     private Object[] lista;
@@ -16,9 +16,9 @@ public class CustomList<T> {
     }
     
     /**
-     * Lisää annetun olion listan loppuun.
+     * LisÃ¤Ã¤ annetun olion listan loppuun.
      * 
-     * @param olio listalle lisättävä olio
+     * @param olio listalle lisÃ¤ttÃ¤vÃ¤ olio
      */
     public void lisaa(T olio) {
         if(osoitin >= lista.length) {
@@ -29,7 +29,7 @@ public class CustomList<T> {
     }
     
     /**
-     * Poistaa annetussa indeksissä olevan olion listalta.
+     * Poistaa annetussa indeksissÃ¤ olevan olion listalta.
      * 
      * @param indeksi indeksi, josta olio halutaan poistaa
      */
@@ -56,8 +56,8 @@ public class CustomList<T> {
     }
     
     /**
-     * Poistaa annetussa listassa määritellyistä indekseistä oliot listalta. 
-     * Indeksien on oltava listalla järjestyksessä pienimmästä suurimpaan.
+     * Poistaa annetussa listassa mÃ¤Ã¤ritellyistÃ¤ indekseistÃ¤ oliot listalta. 
+     * Indeksien on oltava listalla jÃ¤rjestyksessÃ¤ pienimmÃ¤stÃ¤ suurimpaan.
      * 
      * @param indeksit 
      */
@@ -71,7 +71,7 @@ public class CustomList<T> {
     }
     
     /**
-     * Hakee annetussa indeksissä olevan olion listalta.
+     * Hakee annetussa indeksissÃ¤ olevan olion listalta.
      * 
      * @param indeksi indeksi, josta olio halutaan hakea
      * @return listalta haettu olio
@@ -82,9 +82,9 @@ public class CustomList<T> {
     }
     
     /**
-     * Kertoo listan alkioiden määrän.
+     * Kertoo listan alkioiden mÃ¤Ã¤rÃ¤n.
      * 
-     * @return listan alkioiden määrä
+     * @return listan alkioiden mÃ¤Ã¤rÃ¤
      */
     public int koko() {
         return osoitin;

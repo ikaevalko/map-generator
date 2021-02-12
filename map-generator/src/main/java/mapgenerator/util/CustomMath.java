@@ -1,7 +1,7 @@
 package mapgenerator.util;
 
 /**
- * Luokka laskennassa k‰ytett‰ville apumetodeille.
+ * Luokka laskennassa k√§ytett√§ville apumetodeille.
  */
 public class CustomMath {
     public double neliojuuri(int luku) {
