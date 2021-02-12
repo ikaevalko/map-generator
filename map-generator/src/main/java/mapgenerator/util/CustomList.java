@@ -40,7 +40,10 @@ public class CustomList<T> {
         } else {
             Object[] kopio = new Object[lista.length];
             int j = 0;
-            for(int i = 0; i < osoitin; i += i==indeksi ? 2 : 1) {
+            for(int i = 0; i < osoitin; i++) {
+                if(i == indeksi) {
+                    continue;
+                }
                 kopio[j] = lista[i];
                 j++;
             }
@@ -49,6 +52,21 @@ public class CustomList<T> {
         osoitin--;
         if(osoitin <= (int)(lista.length*0.25) && lista.length > 8) {
             pienenna();
+        }
+    }
+    
+    /**
+     * Poistaa annetussa listassa m‰‰ritellyist‰ indekseist‰ oliot listalta. 
+     * Indeksien on oltava listalla j‰rjestyksess‰ pienimm‰st‰ suurimpaan.
+     * 
+     * @param indeksit 
+     */
+    public void poistaMonta(CustomList<Integer> indeksit) {
+        if(indeksit.koko() <= 0) {
+            return;
+        }
+        for(int i = indeksit.koko() - 1; i >= 0; i--) {
+            poista(indeksit.hae(i));
         }
     }
     

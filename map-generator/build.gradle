@@ -47,3 +47,5 @@ jar {
         attributes 'Main-Class': 'mapgenerator.Main'
     }
 }
+
+applicationDefaultJvmArgs = ["-Xss1024m"]

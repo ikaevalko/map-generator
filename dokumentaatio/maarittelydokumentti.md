@@ -1,4 +1,4 @@
-## Määrittelydokumentti
+# Määrittely
 
 Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit (2021, periodi 3)
 Tietojenkäsittelytieteen kandiohjelma
@@ -11,11 +11,12 @@ Harjoitustyön aiheena on tietokonepeleistä tuttu kaksiulotteinen karttageneraa
 
 Toteutettavia algoritmeja:
 
-- näennäissatunnaislukugeneraattori
-- soluautomaatioon perustuva karttageneraattori
-- vertailukohteeksi jokin toisenlainen karttageneraattori (ei päätetty vielä)
+- Näennäissatunnaislukugeneraattori
+- Soluautomaatioon perustuva karttageneraattori
+  - Bresenhamin algoritmi
+- Perlin Noise -karttageneraattori
 
 Toteutettavia tietorakenteita:
 
-- lista
-- verkko (ehkä)
+- Lista
+- Vektori

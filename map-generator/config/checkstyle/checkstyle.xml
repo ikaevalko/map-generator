@@ -10,19 +10,10 @@
 		  <property name="tokens" value="METHOD_DEF"/>
 		  <property name="max" value="30"/>
 		</module>
-		<module name="NestedIfDepth">
-		  <property name="max" value="2"/>
-		</module>
-		<module name="NestedForDepth">
-		  <property name="max" value="1"/>
-		</module>
 		<module name="Indentation">
 		  <property name="caseIndent" value="0"/>
 		</module>
 		<module name="LeftCurly"/>
-		<module name="CyclomaticComplexity">
-		  <property name="max" value="3"/>
-		</module>
     </module>
 
 </module>

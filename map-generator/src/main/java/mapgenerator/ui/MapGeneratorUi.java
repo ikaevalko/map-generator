@@ -1,6 +1,5 @@
 package mapgenerator.ui;
 
-import java.util.Arrays;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -17,7 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import mapgenerator.logic.CellularAutomata;
-import mapgenerator.logic.RandomNumberGenerator;
+import mapgenerator.util.CustomList;
+import mapgenerator.logic.CellRoom;
 
 public class MapGeneratorUi extends Application {
     
@@ -38,9 +38,26 @@ public class MapGeneratorUi extends Application {
         stage.setResizable(false);
         stage.show();
         
-        CellularAutomata generaattori = new CellularAutomata(100, 100, 10, 0.5, 5);
-        piirraTaulukko(generaattori.generoi());
+        CellularAutomata generaattori = new CellularAutomata(100, 100, 10, 0.5, 5, 5, 1);
+        boolean[][] kartta = generaattori.generoi();
         System.out.println("done");
+        piirraTaulukko(kartta);
+//        CustomList<CellRoom> huoneet = generaattori.getHuoneet();
+//        for(int h = 0; h < huoneet.koko(); h++) {
+//            CellRoom huone = huoneet.hae(h);
+//            CustomList<int[]> solut = huone.getSolut();
+//            for(int s = 0; s < solut.koko(); s++) {
+//                int[] solu = solut.hae(s);
+//                Rectangle debug = new Rectangle(5, 5, Color.RED);
+//                pohja.getChildren().add(debug);
+//                debug.setTranslateX(solu[0]*10);
+//                debug.setTranslateY(solu[1]*10);
+//            }
+//        }
+        pohja.setScaleX(0.5);
+        pohja.setScaleY(0.5);
+        pohja.setTranslateX(400-(100*10/2)*0.5);
+        pohja.setTranslateY(400-(100*10/2)*0.5);
     }
     
     private void luoAlkuvalikko() {
@@ -91,23 +108,23 @@ public class MapGeneratorUi extends Application {
     
     public void piirraTaulukko(boolean[][] taulukko) {
         for(int x = 0; x < taulukko.length; x++) {
-            for(int y = 0; y < taulukko.length; y++) {
+            for(int y = 0; y < taulukko[0].length; y++) {
                 if(taulukko[x][y]) {
-                    lisaaLattia(x*10, y*10);
+                    lisaaLattia(x, y);
                 }
             }
         }
-        pohja.setScaleX(0.5);
-        pohja.setScaleY(0.5);
-        pohja.setTranslateX(400-(taulukko[0].length*10/2)*0.5);
-        pohja.setTranslateY(400-(taulukko.length*10/2)*0.5);
+//        pohja.setScaleX(0.5);
+//        pohja.setScaleY(0.5);
+//        pohja.setTranslateX(400-(taulukko[0].length*10/2)*0.5);
+//        pohja.setTranslateY(400-(taulukko.length*10/2)*0.5);
     }
     
     public void lisaaLattia(int x, int y) {
         Rectangle lattia = new Rectangle(10, 10, Color.WHITE);
         pohja.getChildren().add(lattia);
-        lattia.setTranslateX(x);
-        lattia.setTranslateY(y);
+        lattia.setTranslateX(x*10);
+        lattia.setTranslateY(y*10);
     }
     
     public void kaynnista() {
