@@ -8,7 +8,6 @@ import mapgenerator.util.CustomMath;
  */
 public class CellularAutomata {
     private final boolean[][] kartta;
-    private final RandomNumberGenerator rng;
     private final int kartanLeveys;
     private final int kartanKorkeus;
     private final double tayttoaste;
@@ -16,6 +15,7 @@ public class CellularAutomata {
     private final int huoneidenMinimikoko;
     private final int kaytavienKoko;
     private final CustomList<CellRoom> huoneet;
+    private final RandomNumberGenerator rng;
     private final CustomMath apuMath;
     
     /**
@@ -35,12 +35,12 @@ public class CellularAutomata {
         this.kartta = new boolean[kartanLeveys][kartanKorkeus];
         this.kartanLeveys = kartanLeveys;
         this.kartanKorkeus = kartanKorkeus;
-        this.rng = new RandomNumberGenerator(seed);
         this.tayttoaste = tayttoaste;
         this.tasoituskertoja = tasoituskertoja;
         this.huoneidenMinimikoko = huoneidenMinimikoko;
         this.kaytavienKoko = kaytavienKoko;
         this.huoneet = new CustomList<>();
+        this.rng = new RandomNumberGenerator(seed);
         this.apuMath = new CustomMath();
     }
     
@@ -250,6 +250,7 @@ public class CellularAutomata {
         for(int i = 0; i < pisin; i++) {
             for(int kx = -kaytavienKoko; kx <= kaytavienKoko; kx++) {
                 for(int ky = -kaytavienKoko; ky <= kaytavienKoko; ky++) {
+                    if((x+kx <= 0 || x+kx >= kartanLeveys - 1) || (y+ky <= 0 || y+ky >= kartanKorkeus - 1)) continue;
                     if(kartta[x+kx][y+ky]) continue;
                     kartta[x+kx][y+ky] = true;
                 }

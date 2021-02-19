@@ -5,6 +5,14 @@ package mapgenerator.util;
  */
 public class CustomMath {
     public double neliojuuri(int luku) {
+	return laskeNeliojuuri((double)luku);
+    }
+    
+    public double neliojuuri(double luku) {
+	return laskeNeliojuuri(luku);
+    }
+    
+    private double laskeNeliojuuri(double luku) {
 	double apu;
 	double nj = luku/2;
 	do {
