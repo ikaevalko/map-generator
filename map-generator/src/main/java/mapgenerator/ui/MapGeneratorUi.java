@@ -189,6 +189,7 @@ public class MapGeneratorUi extends Application {
     private void generoiCA(int kartanLeveys, int kartanKorkeus, int seed, double tayttoaste, 
                            int tasoituskertoja, int huoneidenMinimikoko, int kaytavienKoko) {
         statusTeksti.setText("Generoidaan...");
+        paavalikko.setDisable(true);
         new Thread(() -> {
             CellularAutomata generaattori = new CellularAutomata(kartanLeveys, kartanKorkeus, seed, tayttoaste, 
                                                                  tasoituskertoja, huoneidenMinimikoko, kaytavienKoko);
@@ -198,6 +199,7 @@ public class MapGeneratorUi extends Application {
             } catch(Exception e) {
                 Platform.runLater(() -> {
                     statusTeksti.setText("Virheelliset parametrit");
+                    paavalikko.setDisable(false);
                 });
                 return;
             }
@@ -218,12 +220,14 @@ public class MapGeneratorUi extends Application {
                 kartanAsettelu.setCenter(ankkuri);
                 kartanAsettelu.getChildren().remove(skaalausNapit);
                 kartanAsettelu.setRight(skaalausNapit);
+                paavalikko.setDisable(false);
             });
         }).start();
     }
     
     private void generoiPN(int kartanKoko, int ristikonTiheys, int seed) {
         statusTeksti.setText("Generoidaan...");
+        paavalikko.setDisable(true);
         new Thread(() -> {
             PerlinNoise generaattori = new PerlinNoise(kartanKoko, ristikonTiheys, seed);
             long alku = System.currentTimeMillis();
@@ -232,6 +236,7 @@ public class MapGeneratorUi extends Application {
             } catch(IllegalArgumentException e) {
                 Platform.runLater(() -> {
                     statusTeksti.setText(e.getMessage());
+                    paavalikko.setDisable(false);
                 });
                 return;
             }
@@ -252,6 +257,7 @@ public class MapGeneratorUi extends Application {
                 kartanAsettelu.setCenter(ankkuri);
                 kartanAsettelu.getChildren().remove(skaalausNapit);
                 kartanAsettelu.setRight(skaalausNapit);
+                paavalikko.setDisable(false);
             });
         }).start();
     }
