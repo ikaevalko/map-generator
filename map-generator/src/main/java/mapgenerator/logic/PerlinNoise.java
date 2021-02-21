@@ -11,7 +11,6 @@ public class PerlinNoise {
     private final double askel;
     
     public PerlinNoise(int kartanKoko, int ristikonTiheys, int seed) {
-        tarkistaArgumentit(kartanKoko, ristikonTiheys);
         this.arvot = new double[kartanKoko][kartanKoko];
         this.vektorit = new Vector[ristikonTiheys+1][ristikonTiheys+1];
         this.kartanKoko = kartanKoko;
@@ -21,6 +20,11 @@ public class PerlinNoise {
     }
     
     public double[][] generoi() {
+        try {
+            tarkistaArgumentit(kartanKoko, ristikonTiheys);
+        } catch(IllegalArgumentException e) {
+            throw e;
+        }
         alustaRistikko();
         int indeksiX = 0;
         int indeksiY = 0;
@@ -79,12 +83,16 @@ public class PerlinNoise {
         return a+t*(b-a);
     }
     
-    private void tarkistaArgumentit(int kartanKoko, int ristikonTiheys) {
+    private void tarkistaArgumentit(int kartanKoko, int ristikonTiheys) throws IllegalArgumentException {
         if(kartanKoko < 1) {
-            throw new IllegalArgumentException("kartanKoko on oltava vähintään 1");
+            throw new IllegalArgumentException("kartanKoko on oltava v\u00e4hint\u00e4\u00e4n 1");
         }
         if(ristikonTiheys < 1) {
-            throw new IllegalArgumentException("ristikonTiheys on oltava vähintään 1");
+            throw new IllegalArgumentException("ristikonTiheys on oltava v\u00e4hint\u00e4\u00e4n 1");
         }
+    }
+    
+    public double[][] getKartta() {
+        return this.arvot;
     }
 }

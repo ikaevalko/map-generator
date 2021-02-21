@@ -13,8 +13,8 @@ public class CellRoom {
     /**
      * Luo uuden huoneen.
      * 
-     * @param solut kaikki huoneeseen kuuluvat solut listana
-     * @param kartta generoitava kartta, johon huone kuuluu
+     * @param solut Kaikki huoneeseen kuuluvat solut listana
+     * @param kartta Generoitava kartta, johon huone kuuluu
      */
     public CellRoom(CustomList<int[]> solut, boolean[][] kartta) {
         this.solut = solut;

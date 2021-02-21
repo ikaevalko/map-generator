@@ -21,13 +21,13 @@ public class CellularAutomata {
     /**
      * Luo uuden CellularAutomata-tyyppisen karttageneraattorin.
      * 
-     * @param kartanLeveys solujen määrä x-akselilla
-     * @param kartanKorkeus solujen määrä y-akselilla
-     * @param seed satunnaislukugeneraattorin alkuarvo
-     * @param tayttoaste määrää lattiasolujen esiintyvyyden alustusvaiheessa (0.0 - 1.0)
-     * @param tasoituskertoja montako kertaa karttaa tasoitetaan soluautomaatiolla (vähintään 1)
-     * @param huoneidenMinimikoko tätä pienemmät huoneet poistetaan kartasta
-     * @param kaytavienKoko huoneiden yhdistelyssä käytettävien käytävien koko
+     * @param kartanLeveys Solujen määrä x-akselilla
+     * @param kartanKorkeus Solujen määrä y-akselilla
+     * @param seed Satunnaislukugeneraattorin alkuarvo
+     * @param tayttoaste Määrää lattiasolujen esiintyvyyden alustusvaiheessa (0.0 - 1.0)
+     * @param tasoituskertoja Montako kertaa karttaa tasoitetaan soluautomaatiolla (vähintään 1)
+     * @param huoneidenMinimikoko Tätä pienemmät huoneet poistetaan kartasta
+     * @param kaytavienKoko Huoneiden yhdistelyssä käytettävien käytävien koko
      */
     public CellularAutomata(int kartanLeveys, int kartanKorkeus, int seed, 
                             double tayttoaste, int tasoituskertoja, int huoneidenMinimikoko, 
@@ -100,8 +100,8 @@ public class CellularAutomata {
     /**
      * Laskee, montako lattiaa solulla on naapurina.
      * 
-     * @param soluX solun sijanti x-akselilla
-     * @param soluY solun sijainti y-akselilla
+     * @param soluX Solun sijanti x-akselilla
+     * @param soluY Solun sijainti y-akselilla
      * @return solun naapurilattioiden määrä
      */
     private byte getNaapuriLattioita(int soluX, int soluY) {
@@ -144,10 +144,10 @@ public class CellularAutomata {
      * Etsii rekursiolla karttataulukosta kaikki 
      * yksittäiseen huoneeseen kuuluvat solut.
      * 
-     * @param solut huoneeseen kuuluvat solut
-     * @param kartanKopio huoneiden etsinnässä käytettävä karttataulukon kopio
-     * @param x käsiteltävän solun sijainti x-akselilla
-     * @param y käsiteltävän solun sijainti y-akselilla
+     * @param solut Huoneeseen kuuluvat solut
+     * @param kartanKopio Huoneiden etsinnässä käytettävä karttataulukon kopio
+     * @param x Käsiteltävän solun sijainti x-akselilla
+     * @param y Käsiteltävän solun sijainti y-akselilla
      * @return huoneeseen kuuluvat solut
      */
     private void etsiHuone(CustomList<int[]> solut, boolean[][] kartanKopio, int x, int y) {
@@ -184,7 +184,7 @@ public class CellularAutomata {
      * Poistaa yksittäisen huoneen karttataulukosta muuttamalla 
      * kaikki sen solut seiniksi.
      * 
-     * @param huone poistettava huone
+     * @param huone Poistettava huone
      */
     private void poistaHuone(CellRoom huone) {
         CustomList<int[]> huoneenSolut = huone.getSolut();
@@ -194,6 +194,11 @@ public class CellularAutomata {
         }
     }
     
+    /**
+     * Yhdistelee toisiinsa lähimpänä toisiaan olevia huoneita. 
+     * Metodi ei varmista, että kaikki huoneet olisivat transitiivisesti 
+     * yhteydessä.
+     */
     private void yhdistaHuoneet() {
         if(huoneet.koko() <= 1) return;
         int[] yhdistetyt = new int[huoneet.koko()];
@@ -211,6 +216,13 @@ public class CellularAutomata {
         }
     }
     
+    /**
+     * Hakee huoneet-listalta sen huoneen (indeksin), joka on lähimpänä annettua 
+     * huonetta. Etäisyydet lasketaan huoneiden yhdistäjäsolujen perusteella.
+     * 
+     * @param huoneenIndeksi Huone, jolle etsitään naapuria
+     * @return lähimmän huoneen indeksi
+     */
     private int getLahinHuone(int huoneenIndeksi) {
         int[] alku = huoneet.hae(huoneenIndeksi).getYhdistajasolu();
         int lahin = 0;
@@ -229,6 +241,13 @@ public class CellularAutomata {
         return lahin;
     }
     
+    /**
+     * Muodostaa lattiasoluista suoran käytävän pisteiden alku ja loppu 
+     * välille. Käytävän paksuus määräytyy parametrin "kaytavienKoko" mukaan.
+     * 
+     * @param alku Käytävän alkupiste
+     * @param loppu Käytävän loppupiste
+     */
     private void lisaaKaytava(int[] alku, int[] loppu) {
         int deltaX = loppu[0]-alku[0];
         int deltaY = loppu[1]-alku[1];
@@ -289,6 +308,10 @@ public class CellularAutomata {
     
     public int getKorkeus() {
         return this.kartanKorkeus;
+    }
+    
+    public boolean[][] getKartta() {
+        return this.kartta;
     }
     
     public CustomList<CellRoom> getHuoneet() {

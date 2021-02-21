@@ -5,7 +5,6 @@ package mapgenerator.logic;
  * https://en.wikipedia.org/wiki/Linear_congruential_generator
 */
 public class RandomNumberGenerator {
-    
     private long edellinen;
     private final long modulus = 281474976710656L;
     private final long kerroin = 25214903917L;
@@ -14,7 +13,7 @@ public class RandomNumberGenerator {
     /**
      * Luo uuden satunnaislukugeneraattorin.
      * 
-     * @param seed alkuarvo
+     * @param seed Alkuarvo
      */
     public RandomNumberGenerator(long seed) {
         this.edellinen = seed;
