@@ -55,8 +55,12 @@ public class CellularAutomata {
             tasoita();
         }
         etsiHuoneet();
-        poistaLiianPienetHuoneet();
-        yhdistaHuoneet();
+        if(huoneidenMinimikoko > 0) {
+            poistaLiianPienetHuoneet();
+        }
+        if(kaytavienKoko > 0) {
+            yhdistaHuoneet();
+        }
         return kartta;
     }
     
@@ -64,7 +68,7 @@ public class CellularAutomata {
      * Alustaa karttataulukon satunnaisilla totuusarvoilla, joiden 
      * jakauma määräytyy täyttöaste-parametrin mukaan.
      */
-    private void alusta() {
+    public void alusta() {
         for(int x = 0; x < kartanLeveys; x++) {
             for(int y = 0; y < kartanKorkeus; y++) {
                 double satunnainen = rng.seuraava();
@@ -168,7 +172,6 @@ public class CellularAutomata {
      * pienempi kuin huoneidenMinimikoko.
      */
     private void poistaLiianPienetHuoneet() {
-        System.out.println("");
         CustomList<Integer> poistettavat = new CustomList<>();
         for(int i = 0; i < huoneet.koko(); i++) {
             CellRoom huone = huoneet.hae(i);
@@ -195,14 +198,15 @@ public class CellularAutomata {
     }
     
     /**
-     * Yhdistelee toisiinsa lähimpänä toisiaan olevia huoneita. 
-     * Metodi ei varmista, että kaikki huoneet olisivat transitiivisesti 
-     * yhteydessä.
+     * Yhdistelee lähimpänä toisiaan olevia huoneita. Metodi ei varmista, 
+     * että kaikki huoneet olisivat transitiivisesti yhteydessä.
      */
     private void yhdistaHuoneet() {
         if(huoneet.koko() <= 1) return;
         int[] yhdistetyt = new int[huoneet.koko()];
-        for(int i = 0; i < yhdistetyt.length; i++) yhdistetyt[i] = -1;
+        for(int i = 0; i < yhdistetyt.length; i++) {
+            yhdistetyt[i] = -1;
+        }
         for(int i = 0; i < huoneet.koko(); i++) {
             if(yhdistetyt[i] != -1) continue;
             int lahin = getLahinHuone(i);
@@ -316,5 +320,19 @@ public class CellularAutomata {
     
     public CustomList<CellRoom> getHuoneet() {
         return this.huoneet;
+    }
+    
+    public String getKarttaMerkkijonona() {
+        char[] merkit = new char[kartanLeveys*kartanKorkeus];
+        for(int x = 0; x < kartanLeveys; x++) {
+            for(int y = 0; y < kartanKorkeus; y++) {
+                if(kartta[x][y]) {
+                    merkit[x*kartanKorkeus+y] = '.';
+                } else {
+                    merkit[x*kartanKorkeus+y] = '#';
+                }
+            }
+        }
+        return new String(merkit);
     }
 }

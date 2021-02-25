@@ -2,6 +2,9 @@ package mapgenerator.logic;
 
 import mapgenerator.util.Vector;
 
+/**
+ * Perlin Noise -algoritmiin perustuva karttageneraattori.
+ */
 public class PerlinNoise {
     private final double[][] arvot;
     private final Vector[][] vektorit;
@@ -10,6 +13,13 @@ public class PerlinNoise {
     private final RandomNumberGenerator rng;
     private final double askel;
     
+    /**
+     * Luo uuden PerlinNoise-tyyppisen karttageneraattorin.
+     * 
+     * @param kartanKoko Kartan solujen määrä x- ja y-akseleilla
+     * @param ristikonTiheys Laskennassa käytettävien vektorien määrä (-1) ristikon x- ja y-akseleilla
+     * @param seed Satunnaisgeneraattorin alkuarvo
+     */
     public PerlinNoise(int kartanKoko, int ristikonTiheys, int seed) {
         this.arvot = new double[kartanKoko][kartanKoko];
         this.vektorit = new Vector[ristikonTiheys+1][ristikonTiheys+1];
@@ -19,6 +29,11 @@ public class PerlinNoise {
         this.askel = ristikonTiheys/(double)kartanKoko;
     }
     
+    /**
+     * Muodostaa kartan kutsumalla kaikille soluille perlin-metodia.
+     * 
+     * @return valmis kartta double-tyyppisenä taulukkona
+     */
     public double[][] generoi() {
         try {
             tarkistaArgumentit(kartanKoko, ristikonTiheys);
@@ -41,6 +56,9 @@ public class PerlinNoise {
         return arvot;
     }
     
+    /**
+     * Alustaa ristikon satunnaisiin suuntiin osoittavilla (normalisoiduilla) vektoreilla.
+     */
     private void alustaRistikko() {
         for(int x = 0; x <= ristikonTiheys; x++) {
             for(int y = 0; y <= ristikonTiheys; y++) {
@@ -51,6 +69,13 @@ public class PerlinNoise {
         }
     }
     
+    /**
+     * Laskee Perlin Noise -funktion arvon pisteessä (x, y).
+     * 
+     * @param x X-koordinaatti
+     * @param y Y-koordinaatti
+     * @return laskettu arvo
+     */
     private double perlin(double x, double y) {
         int x0 = (int)x;
         int x1 = x0 + 1;
@@ -75,10 +100,12 @@ public class PerlinNoise {
                     lerp(v, pistetulo10, pistetulo11));
     }
     
+    // "Smootherstep"-interpolaatiofunktio
     private double fade(double t) {
         return t*t*t*(t*(t*6-15)+10);
     }
     
+    // Lineaarinen interpolaatiofunktio
     private double lerp(double t, double a, double b) {
         return a+t*(b-a);
     }

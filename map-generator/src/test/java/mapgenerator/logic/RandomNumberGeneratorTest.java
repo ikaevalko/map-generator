@@ -1,16 +1,16 @@
 package mapgenerator.logic;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RandomNumberGeneratorTest {
     
     private RandomNumberGenerator rand;
     private int seed = 10;
     
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         this.rand = new RandomNumberGenerator(seed);
     }
     

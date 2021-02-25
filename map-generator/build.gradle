@@ -13,8 +13,27 @@ repositories {
     jcenter()
 }
 
+test {
+    useJUnitPlatform()
+    jacoco {
+        excludes = ['MapGeneratorUi', 'Main']
+    }
+}
+
+sourceSets {
+    performanceTest {
+        java.srcDir file("src/performance-test/java")
+        resources.srcDir file("src/performance-test/resources")
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
 dependencies {
-    testImplementation     'junit:junit:4.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    performanceTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    performanceTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 jacoco {
@@ -31,12 +50,6 @@ jacocoTestReport {
     }
 }
 
-test {
-    jacoco {
-        excludes = ['MapGeneratorUi', 'Main']
-    }
-}
-
 javafx {
     version = "15.0.1"
     modules = [ 'javafx.controls' ]
@@ -45,6 +58,18 @@ javafx {
 jar {
     manifest {
         attributes 'Main-Class': 'mapgenerator.Main'
+    }
+}
+
+task performanceTest(type: Test) {
+    description = 'Ajaa suorituskykytestit'
+    testClassesDirs = sourceSets.performanceTest.output.classesDirs
+    classpath = sourceSets.performanceTest.runtimeClasspath
+    jvmArgs '-Xss512M'
+    useJUnitPlatform()
+    outputs.upToDateWhen {false}
+    testLogging {
+        showStandardStreams = true
     }
 }
 

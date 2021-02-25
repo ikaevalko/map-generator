@@ -1,7 +1,7 @@
 package mapgenerator.util;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomListTest {
     @Test
@@ -38,22 +38,26 @@ public class CustomListTest {
         assertTrue(lista.hae(9) == 0);
     }
     
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void listaEiHyvaksyNegatiivistaIndeksia() {
         CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 10; i++) {
             lista.lisaa(i);
         }
-        lista.hae(-1);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            lista.hae(-1);
+        });
     }
     
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void listaEiHyvaksyLiianSuurtaIndeksia() {
         CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 10; i++) {
             lista.lisaa(i);
         }
-        lista.hae(10);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            lista.hae(10);
+        });
     }
     
     @Test

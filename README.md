@@ -11,6 +11,8 @@ Harjoitustyön aiheena on tietokonepeleistä tuttu kaksiulotteinen karttageneraa
 
 [Toteutus](dokumentaatio/toteutusdokumentti.md)
 
+[Testaus](dokumentaatio/testausdokumentti.md)
+
 ## Viikkoraportit
 
 [Viikkoraportti 1](dokumentaatio/viikkoraportti1.md)
@@ -37,21 +39,25 @@ gradlew shadowJar
 
 Generoitu tiedosto löytyy kansiosta _build/libs_
 
-## Testaus
+## Yksikkötestaus
 
 Yksikkötestit suoritetaan komennolla
-
 ```
 gradlew test
 ```
 
 Testikattavuusraportti luodaan kansioon _build/reports/jacoco/test/html_ komennolla
-
 ```
 gradlew jacocoTestReport
 ```
-
 Luotua raporttia voi tarkastella selaimella avaamalla tiedosto _index.html_
+
+## Suorituskykytestaus
+
+Suorituskykytestit suoritetaan komennolla
+```
+gradlew performanceTest
+```
 
 ## Checkstyle
 

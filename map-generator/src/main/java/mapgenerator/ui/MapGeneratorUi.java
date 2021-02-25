@@ -45,6 +45,12 @@ public class MapGeneratorUi extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
+        
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        
         luoKarttaNakyma();
         meneKarttanakymaan();
         stage.setMinWidth(800);
