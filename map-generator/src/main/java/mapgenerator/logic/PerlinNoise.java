@@ -59,7 +59,7 @@ public class PerlinNoise {
     /**
      * Alustaa ristikon satunnaisiin suuntiin osoittavilla (normalisoiduilla) vektoreilla.
      */
-    private void alustaRistikko() {
+    public void alustaRistikko() {
         for(int x = 0; x <= ristikonTiheys; x++) {
             for(int y = 0; y <= ristikonTiheys; y++) {
                 Vector v = new Vector(new double[]{rng.seuraava()-0.5, rng.seuraava()-0.5});
@@ -121,5 +121,9 @@ public class PerlinNoise {
     
     public double[][] getKartta() {
         return this.arvot;
+    }
+    
+    public Vector[][] getVektorit() {
+        return this.vektorit;
     }
 }

@@ -25,6 +25,8 @@ Harjoitustyön aiheena on tietokonepeleistä tuttu kaksiulotteinen karttageneraa
 
 [Viikkoraportti 5](dokumentaatio/viikkoraportti5.md)
 
+[Viikkoraportti 6](dokumentaatio/viikkoraportti6.md)
+
 ## Ohjelman suorittaminen
 
 ```

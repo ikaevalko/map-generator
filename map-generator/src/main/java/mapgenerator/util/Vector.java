@@ -46,12 +46,30 @@ public class Vector {
         }
     }
     
+    /** 
+     * Laskee tämän ja argumenttina annetun vektorin summan.
+     * Vektoreilla on oltava sama määrä alkioita.
+     * 
+     * @param toinen Summattava vektori
+     * @return Vektoreiden summa
+     */
+    public Vector summa(Vector toinen) {
+        if(alkiot.length != toinen.getAlkiot().length) {
+            throw new IllegalArgumentException("Vektoreilla on eri määrä alkioita");
+        }
+        double[] summatutAlkiot = new double[alkiot.length];
+        for(int i = 0; i < alkiot.length; i++) {
+            summatutAlkiot[i] = alkiot[i] + toinen.getAlkio(i);
+        }
+        return new Vector(summatutAlkiot);
+    }
+    
     /**
      * Laskee tämän ja argumenttina annetun vektorin pistetulon. 
      * Vektoreilla on oltava sama määrä alkioita.
      * 
-     * @param toinen vektori, jonka kanssa pistetulo lasketaan
-     * @return vektoreiden pistetulo
+     * @param toinen Vektori, jonka kanssa pistetulo lasketaan
+     * @return Vektoreiden pistetulo
      */
     public double pistetulo(Vector toinen) {
         if(alkiot.length != toinen.getAlkiot().length) {
@@ -59,7 +77,7 @@ public class Vector {
         }
         double pt = 0.0;
         for(int i = 0; i < alkiot.length; i++) {
-            pt += alkiot[i]*toinen.getAlkio(i);
+            pt += alkiot[i] * toinen.getAlkio(i);
         }
         return pt;
     }

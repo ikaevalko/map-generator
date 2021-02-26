@@ -35,7 +35,9 @@ public class CellularAutomataTest {
     }
     
     @Test
-    public void generaattoriTuottaaOikeanlaisenKartan() {
+    public void generoituKarttaVastaaMallikarttaa1() {
+        // - Ei poista huoneita
+        // - Ei lisää käytäviä
         CellularAutomata generaattori = new CellularAutomata(16, 16, 10, 0.5, 1, 0, 0);
         generaattori.generoi();
         String malli = "################" +
@@ -53,6 +55,81 @@ public class CellularAutomataTest {
                        "####...........#" +
                        "####...........#" +
                        "####...........#" +
+                       "################";
+        assertEquals(malli, generaattori.getKarttaMerkkijonona());
+    }
+    
+    @Test
+    public void generoituKarttaVastaaMallikarttaa2() {
+        // - Ei poista huoneita
+        // - Ei lisää käytäviä
+        CellularAutomata generaattori = new CellularAutomata(16, 16, 20, 0.55, 1, 0, 0);
+        generaattori.generoi();
+        String malli = "################" +
+                       "################" +
+                       "###########..###" +
+                       "###########..###" +
+                       "##.########..###" +
+                       "#...######..####" +
+                       "##..############" +
+                       "##...###########" +
+                       "###..###########" +
+                       "###..###########" +
+                       "##....##########" +
+                       "###....#########" +
+                       "####...#########" +
+                       "#####.##########" +
+                       "################" +
+                       "################";
+        assertEquals(malli, generaattori.getKarttaMerkkijonona());
+    }
+    
+    @Test
+    public void generoituKarttaVastaaMallikarttaa3() {
+        // - Ei poista huoneita
+        // - Lisää käytäviä
+        CellularAutomata generaattori = new CellularAutomata(16, 16, 700, 0.55, 1, 0, 1);
+        generaattori.generoi();
+        String malli = "################" +
+                       "#..##......#####" +
+                       "#...........####" +
+                       "##..........####" +
+                       "##.....##....###" +
+                       "#####...#....###" +
+                       "####.....#...###" +
+                       "####.....#######" +
+                       "######...#######" +
+                       "######....######" +
+                       "######...#######" +
+                       "####......######" +
+                       "####......######" +
+                       "####......######" +
+                       "###.......######" +
+                       "################";
+        assertEquals(malli, generaattori.getKarttaMerkkijonona());
+    }
+    
+    @Test
+    public void generoituKarttaVastaaMallikarttaa4() {
+        // - Poistaa huoneita
+        // - Lisää käytäviä
+        CellularAutomata generaattori = new CellularAutomata(16, 16, 700, 0.55, 1, 8, 1);
+        generaattori.generoi();
+        String malli = "################" +
+                       "#..#############" +
+                       "#....###########" +
+                       "##....##########" +
+                       "##....##########" +
+                       "###.....########" +
+                       "###......#######" +
+                       "####.....#######" +
+                       "#####....#######" +
+                       "#####.....######" +
+                       "######...#######" +
+                       "####......######" +
+                       "####......######" +
+                       "####......######" +
+                       "###.......######" +
                        "################";
         assertEquals(malli, generaattori.getKarttaMerkkijonona());
     }
