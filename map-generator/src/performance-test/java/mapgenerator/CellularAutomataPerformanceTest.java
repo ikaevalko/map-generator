@@ -24,11 +24,12 @@ public class CellularAutomataPerformanceTest {
     
     @AfterAll
     static void lopeta() {
-        System.out.println("");
+        System.out.println("------------------------------------------------");
         System.out.println("Suorituskykytestien tulokset (CellularAutomata):");
         for(int i = 0; i < nimet.size(); i++) {
             System.out.printf("%30s %10s%n", nimet.get(i), ajat.get(i));
         }
+        System.out.println("------------------------------------------------");
     }
     
     static void lisaaTulos(String nimi, String aika) {
@@ -134,5 +135,25 @@ public class CellularAutomataPerformanceTest {
         generaattori.generoi();
         long loppu = System.currentTimeMillis();
         lisaaTulos("2048x2048, 10, 0.5, 5, 5, 0", String.valueOf(loppu-alku));
+    }
+    
+    @Test
+    @Order(11)
+    public void massiivisempiKarttaOletusparametreilla() {
+        generaattori = new CellularAutomata(4096, 4096, 10, 0.5, 5, 5, 1);
+        long alku = System.currentTimeMillis();
+        generaattori.generoi();
+        long loppu = System.currentTimeMillis();
+        lisaaTulos("4096x4096, 10, 0.5, 5, 5, 1", String.valueOf(loppu-alku));
+    }
+    
+    @Test
+    @Order(12)
+    public void massiivisempiKarttaIlmanKaytavia() {
+        generaattori = new CellularAutomata(4096, 4096, 10, 0.5, 5, 5, 0);
+        long alku = System.currentTimeMillis();
+        generaattori.generoi();
+        long loppu = System.currentTimeMillis();
+        lisaaTulos("4096x4096, 10, 0.5, 5, 5, 0", String.valueOf(loppu-alku));
     }
 }
