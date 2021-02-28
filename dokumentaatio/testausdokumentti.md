@@ -51,7 +51,7 @@ myös tuottaa mielekkään kartan.
 
 #### Suuntaa antavia testituloksia
 
-![](dokumentaatio/suorituskykytestit.png)
+![](kuvat/suorituskykytestit.png)
 
 Tuloksista voidaan nähdä, että koon kasvaessa PerlinNoise suoriutuu huomattavasti nopeammin kuin CellularAutomata. 
 Tämä ei ole kovin yllättävää, sillä iteraatoiden määrä CellularAutomatan eri vaiheissa on moninkertainen verrattuna 
