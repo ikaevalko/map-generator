@@ -1,5 +1,9 @@
 package mapgenerator.ui;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -10,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -19,8 +24,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import mapgenerator.logic.CellularAutomata;
 import mapgenerator.logic.PerlinNoise;
@@ -28,11 +31,11 @@ import mapgenerator.logic.PerlinNoise;
 public class MapGeneratorUi extends Application {
     
     private Stage stage;
-    private Scene karttanakyma;
     private GridPane paavalikko;
     private VBox skaalausNapit;
-    private BorderPane kartanAsettelu;
+    private Pane ankkuri;
     private Pane pohja;
+    private ImageView kuva;
     private Label statusTeksti;
     private double skaala;
     
@@ -52,7 +55,6 @@ public class MapGeneratorUi extends Application {
         });
         
         luoKarttaNakyma();
-        meneKarttanakymaan();
         stage.setMinWidth(800);
         stage.setMinHeight(500);
         stage.setTitle("Karttageneraattori");
@@ -125,6 +127,10 @@ public class MapGeneratorUi extends Application {
         Button generoi = new Button("Generoi");
         
         generoi.setOnAction(e -> {
+            if(kartanLeveys.getArvo() > 2000 || kartanKorkeus.getArvo() > 2000) {
+                statusTeksti.setText("Leveys ja korkeus saavat olla enintään 2000");
+                return;
+            }
             double validoituTayttoaste;
             try {
                 validoituTayttoaste = Double.parseDouble(tayttoaste.getText());
@@ -171,6 +177,10 @@ public class MapGeneratorUi extends Application {
         Button generoi = new Button("Generoi");
         
         generoi.setOnAction(e -> {
+            if(kartanKoko.getArvo() > 2000) {
+                statusTeksti.setText("Kartan koko saa olla enintään 2000");
+                return;
+            }
             try {
                 perlinNoiseTasot[0] = Double.parseDouble(taso1.getText());
                 perlinNoiseTasot[1] = Double.parseDouble(taso2.getText());
@@ -196,6 +206,7 @@ public class MapGeneratorUi extends Application {
                            int tasoituskertoja, int huoneidenMinimikoko, int kaytavienKoko) {
         statusTeksti.setText("Generoidaan...");
         paavalikko.setDisable(true);
+        kuva.setImage(null);
         new Thread(() -> {
             CellularAutomata generaattori = new CellularAutomata(kartanLeveys, kartanKorkeus, seed, tayttoaste, 
                                                                  tasoituskertoja, huoneidenMinimikoko, kaytavienKoko);
@@ -211,21 +222,12 @@ public class MapGeneratorUi extends Application {
             }
             long loppu = System.currentTimeMillis();
             boolean[][] kartta = generaattori.getKartta();
-            Pane uusiPohja = new Pane();
-            piirraTaulukko(kartta, uusiPohja);
+            piirraTaulukko(kartta);
             
             Platform.runLater(() -> {
-                pohja = uusiPohja;
-                Pane ankkuri = new Pane();
-                ankkuri.getChildren().add(uusiPohja);
-                ankkuri.setMouseTransparent(true);
-                ankkuri.setTranslateX(20);
-                ankkuri.setTranslateY(20);
+                skaalaaKarttaa(1.0);
                 skaala = 1.0;
                 statusTeksti.setText("Aika: " + (loppu - alku) + " ms");
-                kartanAsettelu.setCenter(ankkuri);
-                kartanAsettelu.getChildren().remove(skaalausNapit);
-                kartanAsettelu.setRight(skaalausNapit);
                 paavalikko.setDisable(false);
             });
         }).start();
@@ -234,6 +236,7 @@ public class MapGeneratorUi extends Application {
     private void generoiPN(int kartanKoko, int ristikonTiheys, int seed) {
         statusTeksti.setText("Generoidaan...");
         paavalikko.setDisable(true);
+        kuva.setImage(null);
         new Thread(() -> {
             PerlinNoise generaattori = new PerlinNoise(kartanKoko, ristikonTiheys, seed);
             long alku = System.currentTimeMillis();
@@ -248,21 +251,12 @@ public class MapGeneratorUi extends Application {
             }
             long loppu = System.currentTimeMillis();
             double[][] kartta = generaattori.getKartta();
-            Pane uusiPohja = new Pane();
-            piirraTaulukko(kartta, uusiPohja);
+            piirraTaulukko(kartta);
             
             Platform.runLater(() -> {
-                pohja = uusiPohja;
-                Pane ankkuri = new Pane();
-                ankkuri.getChildren().add(uusiPohja);
-                ankkuri.setMouseTransparent(true);
-                ankkuri.setTranslateX(20);
-                ankkuri.setTranslateY(20);
+                skaalaaKarttaa(1.0);
                 skaala = 1.0;
                 statusTeksti.setText("Aika: " + (loppu - alku) + " ms");
-                kartanAsettelu.setCenter(ankkuri);
-                kartanAsettelu.getChildren().remove(skaalausNapit);
-                kartanAsettelu.setRight(skaalausNapit);
                 paavalikko.setDisable(false);
             });
         }).start();
@@ -293,6 +287,15 @@ public class MapGeneratorUi extends Application {
     }
     
     private void luoKarttaNakyma() {
+        kuva = new ImageView();
+        
+        pohja = new Pane(kuva);
+        
+        ankkuri = new Pane(pohja);
+        ankkuri.setTranslateX(20);
+        ankkuri.setTranslateY(20);
+        ankkuri.setMouseTransparent(true);
+        
         paavalikko = luoPaavalikko();
         
         Button suurenna = new Button("+");
@@ -309,68 +312,77 @@ public class MapGeneratorUi extends Application {
         
         suurenna.setOnAction(e -> {
             if(skaala < 1.5) {
-                skaalaaKarttaa(pohja, skaala*=2);
+                skaalaaKarttaa(skaala*=2);
             }
         });
         
         pienenna.setOnAction(e -> {
             if(skaala > 0.05) {
-                skaalaaKarttaa(pohja, skaala/=2);
+                skaalaaKarttaa(skaala/=2);
             }
         });
         
-        kartanAsettelu = new BorderPane();
-        kartanAsettelu.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        BorderPane kartanAsettelu = new BorderPane();
+        kartanAsettelu.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         kartanAsettelu.setLeft(paavalikko);
+        kartanAsettelu.setCenter(ankkuri);
         kartanAsettelu.setRight(skaalausNapit);
-        kartanAsettelu.setCenter(new Pane());
-        karttanakyma = new Scene(kartanAsettelu, 800, 600);
-    }
-    
-    private void meneKarttanakymaan() {
+        Scene karttanakyma = new Scene(kartanAsettelu, 800, 600);
         stage.setScene(karttanakyma);
     }
     
-    private void piirraTaulukko(boolean[][] taulukko, Pane pohja) {
+    private void piirraTaulukko(boolean[][] taulukko) {
+        BufferedImage puskuroituKuva = new BufferedImage(taulukko.length*5, taulukko[0].length*5, BufferedImage.TYPE_INT_RGB);
+        Graphics g = puskuroituKuva.createGraphics();
         for(int x = 0; x < taulukko.length; x++) {
             for(int y = 0; y < taulukko[0].length; y++) {
                 if(taulukko[x][y]) {
-                    Rectangle lattia = new Rectangle(10, 10, Color.WHITE);
-                    pohja.getChildren().add(lattia);
-                    lattia.setTranslateX(x*10);
-                    lattia.setTranslateY(y*10);
+                    g.setColor(Color.WHITE);
+                } else {
+                    g.setColor(Color.BLACK);
                 }
+                g.fillRect(x*5, y*5, 5, 5);
             }
         }
+        kuva.setImage(SwingFXUtils.toFXImage(puskuroituKuva, null));
+        kuva.setSmooth(false);
+        kuva.setTranslateX((taulukko.length*5)*0.5);
+        kuva.setTranslateY((taulukko[0].length*5)*0.5);
+        pohja.setTranslateX((taulukko.length*5)*-0.5);
+        pohja.setTranslateY((taulukko[0].length*5)*-0.5);
     }
     
-    private void piirraTaulukko(double[][] taulukko, Pane pohja) {
+    private void piirraTaulukko(double[][] taulukko) {
+        BufferedImage puskuroituKuva = new BufferedImage(taulukko.length*5, taulukko[0].length*5, BufferedImage.TYPE_INT_RGB);
+        Graphics g = puskuroituKuva.createGraphics();
         for(int x = 0; x < taulukko.length; x++) {
             for(int y = 0; y < taulukko[0].length; y++) {
                 double arvo = taulukko[x][y];
-                Color c;
                 if(arvo < perlinNoiseTasot[0]) {
-                    c = Color.DEEPSKYBLUE;
+                    g.setColor(new Color(3, 141, 187));
                 } else if(arvo < perlinNoiseTasot[1]) {
-                    c = Color.NAVAJOWHITE;
+                    g.setColor(new Color(255, 220, 133));
                 } else if(arvo < perlinNoiseTasot[2]) {
-                    c = Color.GREEN;
+                    g.setColor(new Color(68, 126, 43));
                 } else if(arvo < perlinNoiseTasot[3]) {
-                    c = Color.FORESTGREEN;
+                    g.setColor(new Color(83, 141, 58));
                 } else if(arvo < perlinNoiseTasot[4]) {
-                    c = Color.SILVER;
+                    g.setColor(new Color(169, 169, 169));
                 } else {
-                    c = Color.SNOW;
+                    g.setColor(new Color(211, 212, 211));
                 }
-                Rectangle lattia = new Rectangle(10, 10, c);
-                pohja.getChildren().add(lattia);
-                lattia.setTranslateX(x*10);
-                lattia.setTranslateY(y*10);
+                g.fillRect(x*5, y*5, 5, 5);
             }
         }
+        kuva.setImage(SwingFXUtils.toFXImage(puskuroituKuva, null));
+        kuva.setSmooth(false);
+        kuva.setTranslateX((taulukko.length*5)*0.5);
+        kuva.setTranslateY((taulukko[0].length*5)*0.5);
+        pohja.setTranslateX((taulukko.length*5)*-0.5);
+        pohja.setTranslateY((taulukko[0].length*5)*-0.5);
     }
     
-    private void skaalaaKarttaa(Pane pohja, double skaala) {
+    private void skaalaaKarttaa(double skaala) {
         pohja.setScaleX(skaala);
         pohja.setScaleY(skaala);
     }

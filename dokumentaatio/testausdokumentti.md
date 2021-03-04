@@ -16,6 +16,11 @@ Testikattavuusraportti luodaan kansioon _build/reports/jacoco/test/html_ komenno
 gradlew jacocoTestReport
 ```
 
+Käyttöliittymäkoodi ja pääohjelma on jätetty pois testauksen piiristä.
+
+![](kuvat/testikattavuuslogic.png)
+![](kuvat/testkattavuusutil.png)
+
 ## Suorituskykytestaus
 
 Suorituskykytestit suoritetaan komennolla
@@ -24,12 +29,12 @@ gradlew performanceTest
 ```
 
 Algoritmien suorituskykyä testataan eri kokoparametreilla:
-- 64x64
-- 128x128
-- 512x512
-- 1024x1024
-- 2048x2048
-- 4096x4096
+- 64 x 64
+- 128 x 128
+- 512 x 512
+- 1024 x 1024
+- 2048 x 2048
+- 4096 x 4096
 
 Muut parametrit on asetettu lähtökohtaisesti oletusarvoikseen. Ainoa poikkeus on CellularAutomatan käytävien koko, 
 joka saa jokaista karttakokoa kohden arvot 1 (luo käytäviä) ja 0 (ei käytäviä). Tähän syynä on se, että käytävien 
@@ -54,5 +59,5 @@ myös tuottaa mielekkään kartan.
 ![](kuvat/suorituskykytestit.png)
 
 Tuloksista voidaan nähdä, että koon kasvaessa PerlinNoise suoriutuu huomattavasti nopeammin kuin CellularAutomata. 
-Tämä ei ole kovin yllättävää, sillä iteraatoiden määrä CellularAutomatan eri vaiheissa on moninkertainen verrattuna 
+Tämä ei ole kovin yllättävää, sillä iteraatioiden määrä CellularAutomatan eri vaiheissa on moninkertainen verrattuna 
 PerlinNoiseen.

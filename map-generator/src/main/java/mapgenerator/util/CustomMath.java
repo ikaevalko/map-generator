@@ -13,6 +13,9 @@ public class CustomMath {
     }
     
     private double laskeNeliojuuri(double luku) {
+        if(luku < 0) {
+            throw new IllegalArgumentException("Virheellinen argumentti (neliöjuuri): " + luku);
+        }
 	double apu;
 	double nj = luku/2;
 	do {

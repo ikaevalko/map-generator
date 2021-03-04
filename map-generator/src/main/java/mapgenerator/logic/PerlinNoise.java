@@ -126,4 +126,18 @@ public class PerlinNoise {
     public Vector[][] getVektorit() {
         return this.vektorit;
     }
+    
+    public String getKarttaMerkkijonona() {
+        char[] merkit = new char[kartanKoko*kartanKoko];
+        for(int x = 0; x < kartanKoko; x++) {
+            for(int y = 0; y < kartanKoko; y++) {
+                merkit[x*kartanKoko+y] = muutaMerkiksi(arvot[x][y]);
+            }
+        }
+        return new String(merkit);
+    }
+    
+    private char muutaMerkiksi(double arvo) {
+        return Character.forDigit((int)((arvo + 1) * 4.5), 10);
+    }
 }

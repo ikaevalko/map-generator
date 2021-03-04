@@ -13,6 +13,8 @@ Harjoitustyön aiheena on tietokonepeleistä tuttu kaksiulotteinen karttageneraa
 
 [Testaus](dokumentaatio/testausdokumentti.md)
 
+[Käyttöohje](dokumentaatio/kayttoohje.md)
+
 ## Viikkoraportit
 
 [Viikkoraportti 1](dokumentaatio/viikkoraportti1.md)

@@ -2,11 +2,19 @@ package mapgenerator.util;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 public class CustomListTest {
+    
+    private CustomList<Integer> lista;
+    
+    @BeforeEach
+    void init() {
+        lista = new CustomList<>();
+    }
+    
     @Test
     public void listalleVoiLisataKokonaislukuja() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 100; i++) {
             lista.lisaa(i);
         }
@@ -17,7 +25,6 @@ public class CustomListTest {
     
     @Test
     public void listaltaVoiPoistaaKokonaislukuja() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 100; i++) {
             lista.lisaa(i);
         }
@@ -29,7 +36,6 @@ public class CustomListTest {
     
     @Test
     public void listaHakeeOikeanKokonaisluvun() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 9; i >= 0; i--) {
             lista.lisaa(i);
         }
@@ -40,7 +46,6 @@ public class CustomListTest {
     
     @Test
     public void listaEiHyvaksyNegatiivistaIndeksia() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 10; i++) {
             lista.lisaa(i);
         }
@@ -51,7 +56,6 @@ public class CustomListTest {
     
     @Test
     public void listaEiHyvaksyLiianSuurtaIndeksia() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 10; i++) {
             lista.lisaa(i);
         }
@@ -62,7 +66,6 @@ public class CustomListTest {
     
     @Test
     public void listaKasvattaaKapasiteettiaTarvittaessa() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 8; i++) {
             lista.lisaa(i);
         }
@@ -73,7 +76,6 @@ public class CustomListTest {
     
     @Test
     public void listaPienentaaKapasiteettiaTarvittaessa() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 12; i++) {
             lista.lisaa(i);
         }
@@ -86,7 +88,6 @@ public class CustomListTest {
     
     @Test
     public void viimeisestaIndeksistaPoistoToimii() {
-        CustomList<Integer> lista = new CustomList<>();
         for(int i = 0; i < 8; i++) {
             lista.lisaa(i);
         }
