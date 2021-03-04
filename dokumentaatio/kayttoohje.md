@@ -4,7 +4,7 @@ Lataa sovelluksen uusin [release](https://github.com/ikaevalko/map-generator/rel
 
 1. Käynnistä sovellus kaksoisklikkaamalla käynnistäjäskriptiä:
 	- `launch-linux`, jos käytät Linuxia
-	- `launch-win.bat, jos käytät Windowsia
+	- `launch-win.bat`, jos käytät Windowsia
 	
 Vaihtoehtoisesti voit käynnistää sovelluksen komentoriviltä ajamalla komennon 
 `java -Xss128M -jar map-generator-all.jar` kansiossa _jar_.

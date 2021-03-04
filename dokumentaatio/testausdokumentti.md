@@ -19,7 +19,7 @@ gradlew jacocoTestReport
 Käyttöliittymäkoodi ja pääohjelma on jätetty pois testauksen piiristä.
 
 ![](kuvat/testikattavuuslogic.png)
-![](kuvat/testkattavuusutil.png)
+![](kuvat/testikattavuusutil.png)
 
 ## Suorituskykytestaus
 
