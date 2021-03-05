@@ -2,12 +2,7 @@
 
 Lataa sovelluksen uusin [release](https://github.com/ikaevalko/map-generator/releases). 
 
-1. Käynnistä sovellus kaksoisklikkaamalla käynnistäjäskriptiä:
-	- `launch-linux`, jos käytät Linuxia
-	- `launch-win.bat`, jos käytät Windowsia
-	
-Vaihtoehtoisesti voit käynnistää sovelluksen komentoriviltä ajamalla komennon 
-`java -Xss128M -jar map-generator-all.jar` kansiossa _jar_.
+Käynnistä sovellus ajamalla komento `java -Xss128M -jar map-generator.jar`.
 
 ### Karttojen generointi
 
