@@ -41,10 +41,6 @@ public class MapGeneratorUi extends Application {
     
     private final double[] perlinNoiseTasot = new double[5];
     
-    public void kaynnista() {
-        launch();
-    }
-    
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
@@ -385,5 +381,9 @@ public class MapGeneratorUi extends Application {
     private void skaalaaKarttaa(double skaala) {
         pohja.setScaleX(skaala);
         pohja.setScaleY(skaala);
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
     }
 }
